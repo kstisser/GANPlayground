@@ -152,7 +152,7 @@ class NeuralStyleTransfer:
         print("Total hub time: {:.1f}".format(end-start))
         return styledImg
 
-    def applyStyle(self, removeHighFrequency=False, verbose=False):
+    def applyStyle(self, removeHighFrequency=True, verbose=False):
         start = time.time()
         #choose intermediate layers to represent the content and style of the image
         content_layers = ['block5_conv2'] 
@@ -168,7 +168,7 @@ class NeuralStyleTransfer:
 
         #calls the model class to get the gram matrix of the style layers and the content layers
         extractor = StyleContentModel(style_layers, content_layers)
-        self.style_targets = extractor(self.style_image)['style']
+        self.style_targets = extractor(self.styleImage)['style']
         self.content_targets = extractor(self.content_image)['content']
 
         if verbose:
